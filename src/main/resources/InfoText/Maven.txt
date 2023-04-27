@@ -1,0 +1,10 @@
+------------------------------------------------------------------Maven Dependency management Tool/Build Tool------------------------------------------------------------------------------
+- Configuring maven :-
+  - download the zip file with various things
+  - then configure the path in environment variable
+    - open edit environment variable
+    - create new env for MVN_HOME in lower "new"
+    - save the rest part
+- ctrl + shift + O  => (to load mvn dependencies)
+- TestNg:-
+  - groups must remain same in case of dependsOnMethods

@@ -1,0 +1,181 @@
+Webservices are used to share information between 2 or more different applications/databases , irrespective of the fact in which language it has been created
+
+2 types of webservices :-
+SOAP and REST
+
+SOAP example :- http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL , WSDL: means it is soap api
+REST example :- https://stripe.com/docs/api/customers/create, (This complete is also called uri)
+
+---------------------------------------------------------------------REST--------------------------------------------------------------------------------------------------------------
+REST(Representational State Transfer) Webservices data Format(plain text) :- json/graphql/xml
+Apis are the webservices which are responsible to have communication between [client] and [server]
+
+client---->---->----->----request--->---->------>-----server
+client----<----<----<----response---<----<----<-------server
+---------------------------------------------------------------------REST--METHODS---------------------------------------------------------------------------------------------------
+[GET] (Read)
+The most common HTTP method is GET, which returns a representational view of a resource's contents and data.
+GET should be used in read-only mode
+
+[POST] (Create)
+POST is the only RESTful API HTTP method that primarily operates on resource collections.
+When creating a subordinate resource in a collection, applying POST to the parent resource prompts it to create a new resource
+
+[PUT] (Update and Replace)
+The single-resource equivalent of POST is PUT, which updates a resource by replacing its content entirely
+
+[PATCH] (Update)
+PATCH is another HTTP method used to update resources. As opposed to replacing resources, like the PUT method does, PATCH only modifies resource contents.
+
+[DELETE] (Remove)
+The last HTTP method to examine is DELETE. When a DELETE method targets a single resource, that resource is removed entirely.
+
+----------------------------------------------------------------HTTP STATUS CODE SUMMERY----------------------------------------------------------------------------------------------
+200 - Ok
+      Everything worked as expected.
+      Standard response for successful HTTP requests. The actual response will depend on the request method used.
+      In a GET request, the response will contain an entity corresponding to the requested resource.
+      In a POST request the response will contain an entity describing or containing the result of the action.
+201 - Created
+      The request has been fulfilled and resulted in a new resource being created.
+      Successful creation occurred (via either POST or PUT).
+      Set the Location header to contain a link to the newly-created resource (on POST).
+      Response body content may or may not be present.
+      The origin server MUST create the resource before returning the 201 status code.
+      If the action cannot be carried out immediately,the server SHOULD respond with 202 (Accepted) response instead.
+202 - Accepted
+      The request has been accepted for processing, but the processing has not been completed.
+      The request might or might not eventually be acted upon, as it might be disallowed when processing actually takes place.
+      If batch processing of request is going on then before completion the response status code send indicating that request is accepted and work is being done on same
+204 - No Content
+      The server successfully processed the request, but is not returning any content.
+      The 204 response MUST NOT include a message-body, and thus is always terminated by the first empty line after the header fields.
+
+301 - Moved Permanently
+      If requested source is redirected to other resource, providing the information for the same
+      URI/URL changes from source to other source
+
+302 - Found
+      Http response with this status code provide the url in the location header field, browser (user agent) is invited by the response with this code
+      to make second/identical to the new url specified in the location field.
+
+400 - Bad Request
+      The request was unacceptable, often due to missing a required parameter.
+      The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications.
+      The request cannot be fulfilled due to bad syntax.
+
+401 - Unauthorized
+      No valid API key provided.
+      If the request already included Authorization credentials, then the 401 response indicates that authorization has been refused for those credentials.
+      Error code response for missing or invalid authentication token.
+
+402 - Request Failed
+      The parameters were valid but the request failed.
+
+403 - Forbidden	The API key doesn't have permissions to perform the request.
+      Error code for user not authorized to perform the operation or the resource is unavailable for some reason (e.g. time constraints, etc.)
+      The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference.
+
+404 - Not Found	The requested resource doesn't exist.
+      The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible
+      Used when the requested resource is not found, whether it doesn't exist or if there was a 401 or 403 that, for security reasons, the service wants to mask.
+
+405 - Method not Allowed
+
+409 - Conflict	The request conflicts with another request (perhaps due to using the same idempotent key).
+429 - Too Many Requests	Too many requests hit the API too quickly. We recommend an exponential backoff of your requests.
+
+500 - Internal Server Error
+      The server encountered an unexpected condition which prevented it from fulfilling the request.
+      A generic error message, given when no more specific message is suitable.
+      The general catch-all error when the server-side throws an exception.
+
+501 - Not Implemented
+      The server either does not recognise the request method, or it lacks the ability to fulfill the request.
+
+502 - Bad Gateway
+      The server, while acting as a gateway or proxy, received an invalid response from the upstream server it accessed in attempting to fulfill the request.
+
+503 - Service Unavailable
+      The server is currently unavailable (because it is overloaded or down for maintenance). Generally, this is a temporary state.
+
+504 - Gateway Timeout
+      The server was acting as a gateway or proxy and did not receive a timely response from the upstream server.
+-------------------------------------------------------------------------Authentication----------------------------------------------------------------------------------------------
+https://cloud.google.com/blog/products/api-management/5-ways-to-implement-rest-api-authentication
+
+The processes of certifying the identity of users trying to access resources on the server and this is what is known as API authentication.
+Authentication vs Authorization :-
+Authentication is
+ when an entity verifies the identity of a user. In other words,
+ it proves that the clients trying to access a remote server are really who they say they are.
+Authorization is
+ the next thing that happens after successful authentication.
+ It is the approval that a certain client has the right to make a request.
+ Simply, authorization is when an entity verifies that you have the right to access data or information on a given server.
+
+# API Authentication Methods :-
+  [[[[[[[[[[[[[[[[[[[HTTP Basic Authentication]]]]]]]]]]]]]]]]]]]]]]]
+  HTTP Basic Authentication: API consumers send API requests with a username and password in an HTTP header.
+  API providers then validate the credentials to authenticate API users.
+  This simple API authentication method lacks security, as API requests can be intercepted easily.
+
+  HTTP Basic Authentication is the simplest form of identification.
+  This technique combines username and password to form a single value and passes it through a special HTTP header known as authorization where they are encoded with Base64.
+  Therefore, when a client makes a request, the server checks the Authorization header and compares it to the credentials (username and password) it has stored.
+  If they match, the server fulfills the client request, and if not, a special status code is sent back to inform clients that authentication has failed and their request denied.
+
+  [[[[[[[[[[[[[[[[[[[[[[[[[[[HTTP Bearer Authentication]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  HTTP Bearer Authentication: API consumers send API requests with a unique API access token in an HTTP header.
+  API providers then validate the API access token to authenticate API users. This API authentication method is more secure than Basic, as API requests cannot be intercepted easily.
+
+  [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[API Key Authentication]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  API Key – What is an API Key?
+  An API key or application programming interface key is a code that gets passed in by computer applications.
+  The program or application then calls the API or application programming interface to identify its user, developer or calling program to a website.
+
+  API Keys are secret tokens used to authenticate API requests.
+  They usually consist of a public key and a private key, and they help API providers identify the API consumer and grant them access to API resources.
+  API Keys are generally sent as an HTTP header in API requests. API Keys are used for API authentication in a wide range of applications, from mobile apps to enterprise SaaS products.
+
+  API Key authentication is a technique that was invented to overcome the weaknesses of shared credentials which was a big problem in HTTP Basic authentication.
+  The API key is usually a long series of numbers and letters that you either include in the request header or request URL.
+  When the client authenticates the API key, the server stamps their identity and allows them to access data.
+
+  [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[OAuth Authentication] (Token based)]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  OAuth 2.0 is an authorization protocol that gives API users access to a service without sharing their passwords.
+  It's often used for authentication in web, mobile, and desktop applications.
+  OAuth 2.0 is based on the 'token' concept, which allows API users to show they are authenticated without sending the API their username and password every time they request.
+
+  [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ JWT Authentication (JSON Web Token) ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  JSON Web Token (JWT) authentication is an API authentication method that uses tokens to authenticate API consumers.
+  This API authentication method uses JSON data structures to store authentication information for API users, such as usernames and expiration dates.
+
+  How does JWT work?
+  API consumers send API requests with a valid username and password to the API provider.
+  The API provider then generates an encrypted token with the user's credentials, which is sent back to the consumer in response.
+  API users can then use this token in subsequent API requests to authenticate themselves.
+--------------------------------------------------------BASIC CONSTRAINTS of REST-------------------------------------------------------------------------------------------------
+- Uniform Interface
+  - Resource-Everything is resource
+  - URI-any data can be accessed by URI
+  - HTTP-HTTP methods are used
+
+- Stateless-All client-server communication are stateless
+- Cacheable-It happens at client side
+- Layered System-Multiple layer can exist between client and server like proxies,gateway etc.
+- Code on demand :- ability to execute code at client side
+
+"https://reqres.in/api/users?page=2"
+base uri :- https://reqres.in/
+endpoint :- api/users
+query param :- page=2
+path param :- users
+-----------------------------------------------------------------------------Stubs--------------------------------------------------------------------------------------------------
+- Fake data for apis whch have schema , response status code , response status message etc
+---------------------------------------------------------------What to test in API testing------------------------------------------------------------------------------------------
+- Status code validation
+- Status message validation if response adhere same
+- Response parameters
+-
+
